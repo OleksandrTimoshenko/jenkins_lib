@@ -10,4 +10,8 @@ class Utilities implements Serializable {
   def sayHelloFromLib() {
     steps.echo "Hello from lib!"
   }
+  def scaleJenkinsWorkers(String CONTAINER_NAME, String WORKERS_NUMBER) {
+    steps.sh "docker service scale $CONTAINER_NAME=$WORKERS_NUMBER"
+  }
+
 }
