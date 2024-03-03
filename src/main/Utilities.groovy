@@ -57,7 +57,8 @@ class Utilities implements Serializable {
         }
   }
 
-  def checkForceMerge(Boolean FORCE_MERGE_APPROVED) {
+  def checkForceMerge() {
+    def FORCE_MERGE_APPROVED = false
     if (steps.params.FORCE_MERGE == true) {
         def BUILD_TRIGGER_BY = steps.currentBuild.getBuildCauses()[0].userId
         def WHO_CAN_MERGE_WITHOUT_TESTS = getAdminUsers()
