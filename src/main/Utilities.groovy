@@ -87,7 +87,7 @@ class Utilities implements Serializable {
       """
 
       // Checkout the Git repository
-      def prInfo = readJSON text: PR_INFO
+      def prInfo = steps.readJSON text: PR_INFO
       def sourceBranch = prInfo.source.branch.name
       steps.sh "git clone -b ${sourceBranch} ${steps.env.GIT_REPO}"
   }
@@ -107,7 +107,7 @@ class Utilities implements Serializable {
 
   def chechApproves(String PR_INFO) {
     def NOT_APPROVED_USERS = []
-    def prInfo = readJSON text: PR_INFO
+    def prInfo = steps.readJSON text: PR_INFO
     def APPROVERS = prInfo.reviewers.display_name
     def PARTISIPANTS = prInfo.participants
     if (APPROVERS == []) {
