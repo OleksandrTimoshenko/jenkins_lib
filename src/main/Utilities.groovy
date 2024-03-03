@@ -19,6 +19,7 @@ class Utilities implements Serializable {
     return ['admin']
   }
 
+  // TODO: rewrite this func: printMessage(message, color="")
   def printMessage(color, message) {
       def ANSI_RESET = '\u001B[0m'
       def ANSI_YELLOW = '\u001B[33m'
@@ -26,19 +27,19 @@ class Utilities implements Serializable {
 
       switch (color) {
           case 'WARNING':
-              echo "${ANSI_YELLOW}${message}${ANSI_RESET}"
+              steps.echo "${ANSI_YELLOW}${message}${ANSI_RESET}"
               break
           case 'ERROR':
-              echo "${ANSI_RED}${message}${ANSI_RESET}"
+              steps.echo "${ANSI_RED}${message}${ANSI_RESET}"
               break
           default:
-              echo "${ANSI_RESET}${message}${ANSI_RESET}"
+              steps.echo "${ANSI_RESET}${message}${ANSI_RESET}"
               break
       }
   }
 
   def getPRInfo() {
-    def PR_INFO = sh(returnStdout: true, script: """curl \
+    def PR_INFO = steps.sh(returnStdout: true, script: """curl \
                 -X GET -L \
                 -H \"Accept: application/json\" \
                 -H \"Authorization: Bearer ${steps.env.BEARER_AUTH}\" \
