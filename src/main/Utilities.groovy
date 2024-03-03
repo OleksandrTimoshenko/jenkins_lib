@@ -75,9 +75,7 @@ class Utilities implements Serializable {
     return FORCE_MERGE_APPROVED
   }
 
-  def checkout(String PR_INFO) {
-    // Use the 'withCredentials' step to bind SSH credentials
-    steps.withCredentials([sshUserPrivateKey(credentialsId: 'BB_SSH_KEY', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+  def checkout(String PR_INFO, String SSH_PRIVATE_KEY) {
       // Set up Git configuration with the SSH key
       steps.sh """
         rm -rf ~/workspace/Merge_BB_PR/test-for-ci
@@ -92,7 +90,6 @@ class Utilities implements Serializable {
       def prInfo = readJSON text: PR_INFO
       def sourceBranch = prInfo.source.branch.name
       steps.sh "git clone -b ${sourceBranch} ${steps.env.GIT_REPO}"
-    }
   }
 
   def runTests() {
