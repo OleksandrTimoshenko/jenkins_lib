@@ -93,6 +93,7 @@ class Utilities implements Serializable {
   }
 
   def runTests() {
+    def TESTS_OK = false
     def TESTS_RES = steps.sh(script: 'python3 ~/workspace/Merge_BB_PR/test-for-ci/tests.py', returnStdout: true).trim()
     steps.echo "${TESTS_RES}"
     if (TESTS_RES != "Tests passed!") {
